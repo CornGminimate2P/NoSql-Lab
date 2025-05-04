@@ -1,3 +1,43 @@
+MongoDB Query2 - Week 3
+
+1.หายอดขายรวมของจังหวัดในประเทศอินโดนิเชีย
+db["Query"].aggregate([
+	{$match:{"Country/Region":"Indonesia"}},
+	{$group:{_id:"$State",Total:{$sum:"$Sales"}}}
+])
+
+2.แสดงประเทศที่มียอดขายน้อยที่สุด 10 อันดับ
+db["Query"].aggregate([
+	{$group:{_id:"$Country/Region",Total:{$sum:"$Sales"}}},
+	{$sort:{Total:1}},
+	{$limit:10}
+])
+
+3.แสดงเมืองที่ขายของได้มากสุดของประเทศญี่ปุ่น 5 อันดับ
+db["Query"].aggregate([
+	{$match:{"Country/Region":"Japan"}},
+	{$group:{_id:"$City",Total:{$sum:"$Sales"}}},
+	{$sort:{Total:-1}},
+	{$limit:5}
+])
+
+4.แสดงชื่อลูกค้า ที่มียอดขายสูงสุดของแต่ละประเทศ
+db["Query"].aggregate([
+	{$group:{_id:{country:"$Country/Region",cusName:"$Customer Name"},Total:{$sum:"$Sales"}}},
+	{$sort:{Total:-1,"_id.country":1}},
+	{$group:{_id:"$_id.country",Name:{$first:"$_id.cusName"},Totals:{$first:"$Total"}}}
+])
+
+5.แสดง ชื่อสินค้าที่มียอดขายสูงสุด 10 อันดับ
+db["Query"].aggregate([
+	{$group:{_id:"$Product Name",Total:{$sum:"$Sales"}}},
+	{$sort:{Total:-1}},
+	{$limit:10}
+])
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+
 db["Query"].aggregate([
 	{$match:{"Country/Region":"Indonesia"}},
 	{$group:{_id:"$State",Total:{$sum:"$Sales"}}}

@@ -1,3 +1,25 @@
+MongoDB Query - Week 3
+
+1.แสดงข้อมูลที่ไม่ใช่ประเทศไทย หรือ อินโด
+ db["Query"].find({"Country/Region":{$nin:["Thailand","Indonesia"]}})
+
+2.แสดงข้อมูล ที่มียอดขาย ระหว่าง 1000 - 1500
+ db["Query"].find({"Sales":{$gt:1000,$lt:1500}})
+
+3.แสดงข้อมูล Sub-Category เป็น Paper,Furniture
+ db["Query"].find({"Sub-Category":{$in:["Funiture","Paper"]}})
+
+4.แสดงข้อมูล ประเทศไทย ที่มีการ Discount เป็น 0
+ db["Query"].find({"Country/Region":"Thailand",Discount:0})
+
+5.แสดงข้อมูล Region ที่เป็น North Asia และมียอดขายอยู่ระหว่าง 1000-2000
+ db["Query"].find({"Sales":{$gt:1000,$lt:2000},"Region":"North Asia"})
+
+6.แสดงข้อมูลที่ไม่ใช่ประเทศไทยแล้วมี Profit ติดลบ
+ db["Query"].find({"Profit":{$lt:0},"Country/Region":{$ne:"Thailand"}})
+
+///////////////////////////////////////////////////////////////////////////////
+
 db["Query"].find({"Country/Region":{$nin:["Thailand","Indonesia"]}})
 db["Query"].find({"Sales":{$gt:1000,$lt:1500}})
 db["Query"].find({"Sub-Category":{$in:["Funiture","Paper"]}})

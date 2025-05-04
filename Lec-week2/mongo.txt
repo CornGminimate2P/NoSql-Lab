@@ -1,3 +1,53 @@
+MongoDB Query - Week 2
+
+เพิ่มข้อมูลเหล่านี้ลง collection  employee
+
+ID       Name      Tel            Age   Salary    Address  
+C01      yai       01111111       30    20000     bangkok
+C02      gro       01111112       25    30000     bangkok
+C03      job       01111113       31    35000     chonburi
+C04      beau      01111114       105      20     chiangmai
+C05      pu        01111115       300       5     chiangmin
+C06      joy       01111116       20    40000     USA
+
+db.employee.insertMany([
+ {ID:"C01",Name:"yai",Tel:"01111111",Age:30,Salary:20000,Address:"bangkok"},
+ {ID:"C02",Name:"gro",Tel:"01111112",Age:25,Salary:30000,Address:"bangkok"},
+ {ID:"C03",Name:"job",Tel:"01111113",Age:31,Salary:35000,Address:"bangkok"},
+ {ID:"C04",Name:"beau",Tel:"01111114",Age:105,Salary:20,Address:"chiangmai"},
+ {ID:"C05",Name:"pu",Tel:"01111115",Age:300,Salary:5,Address:"chiangmin"},
+ {ID:"C06",Name:"joy",Tel:"01111116",Age:20,Salary:40000,Address:"USA"}])
+
+1.หาคนที่มีเงินเดือนมากกว่าเท่ากับ 30000
+ db.employee.find({Salary:{$gte:30000}})
+
+2.หาคนที่มีเงินเดือน ระห่วาง 2 หมื่น ถึง 3 หมื่น
+ db.employee.find({$and:[{Salary:{$gte:20000,$lte:30000}}]})
+
+3.หาคนที่อยู่ในกรุงเทพ
+ db.employee.find({Address:"bangkok"})
+
+4.หาคนที่ไม่ได้อยู่ในกรุงเทพ
+ db.employee.find({Address:{$ne:"bangkok"}})
+ db.employee.find({Address:{$nin:["bangkok"]}})
+
+5.หาคนที่อยู่ในชลบุรีและเชียงใหม่
+ db.employee.find({$or:[{Address:"chonburi"},{Address:"chiangmai"}]})
+
+6.แสดงข้อมูลเฉพาะ อ.โบ และ อ.ปู
+ db.employee.find({$or:[{Name:"beau"},{Name:"pu"}]})
+
+7.ลบข้อมูลคนที่อยู่ใน USA
+ db.employee.deleteMany({Address:"USA"})
+
+8.Update bangkok เป็น ayotaya
+ db.employee.updateMany({Address:"bangkok"},{$set:{Address:"ayotaya"}})
+
+9.แสดงข้อมูลคนที่มีเงินเดือนมากกว่า 2 หมื่น และอยู่ใน ayotaya
+ db.employee.find({Address:"ayotaya",Salary:{$gt:20000}})
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+
 db.employee.insertMany([
  {ID:"C01",Name:"yai",Tel:"01111111",Age:30,Salary:20000,Address:"bangkok"},
  {ID:"C02",Name:"gro",Tel:"01111112",Age:25,Salary:30000,Address:"bangkok"},
@@ -15,4 +65,3 @@ db.employee.insertMany([
  db.employee.deleteMany({Address:"USA"})
  db.employee.updateMany({Address:"bangkok"},{$set:{Address:"ayotaya"}})
  db.employee.find({Address:"ayotaya",Salary:{$gt:20000}})
-
