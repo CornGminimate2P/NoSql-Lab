@@ -1,0 +1,25 @@
+db["Query"].aggregate([
+	{$match:{"Country/Region":"Indonesia"}},
+	{$group:{_id:"$State",Total:{$sum:"$Sales"}}}
+])
+db["Query"].aggregate([
+	{$group:{_id:"$Country/Region",Total:{$sum:"$Sales"}}},
+	{$sort:{Total:1}},
+	{$limit:10}
+])
+db["Query"].aggregate([
+	{$match:{"Country/Region":"Japan"}},
+	{$group:{_id:"$City",Total:{$sum:"$Sales"}}},
+	{$sort:{Total:-1}},
+	{$limit:5}
+])
+db["Query"].aggregate([
+	{$group:{_id:{country:"$Country/Region",cusName:"$Customer Name"},Total:{$sum:"$Sales"}}},
+	{$sort:{Total:-1,"_id.country":1}},
+	{$group:{_id:"$_id.country",Name:{$first:"$_id.cusName"},Totals:{$first:"$Total"}}}
+])
+db["Query"].aggregate([
+	{$group:{_id:"$Product Name",Total:{$sum:"$Sales"}}},
+	{$sort:{Total:-1}},
+	{$limit:10}
+])

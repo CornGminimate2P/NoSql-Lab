@@ -1,0 +1,18 @@
+db.employee.insertMany([
+ {ID:"C01",Name:"yai",Tel:"01111111",Age:30,Salary:20000,Address:"bangkok"},
+ {ID:"C02",Name:"gro",Tel:"01111112",Age:25,Salary:30000,Address:"bangkok"},
+ {ID:"C03",Name:"job",Tel:"01111113",Age:31,Salary:35000,Address:"bangkok"},
+ {ID:"C04",Name:"beau",Tel:"01111114",Age:105,Salary:20,Address:"chiangmai"},
+ {ID:"C05",Name:"pu",Tel:"01111115",Age:300,Salary:5,Address:"chiangmin"},
+ {ID:"C06",Name:"joy",Tel:"01111116",Age:20,Salary:40000,Address:"USA"}])
+
+ db.employee.find({Salary:{$gte:30000}})
+ db.employee.find({$and:[{Salary:{$gte:20000,$lte:30000}}]})
+ db.employee.find({Address:"bangkok"})
+ db.employee.find({Address:{$ne:"bangkok"}}) && db.employee.find({Address:{$nin:["bangkok"]}})
+ db.employee.find({$or:[{Address:"chonburi"},{Address:"chiangmai"}]})
+ db.employee.find({$or:[{Name:"beau"},{Name:"pu"}]})
+ db.employee.deleteMany({Address:"USA"})
+ db.employee.updateMany({Address:"bangkok"},{$set:{Address:"ayotaya"}})
+ db.employee.find({Address:"ayotaya",Salary:{$gt:20000}})
+

@@ -1,0 +1,6 @@
+db["Query"].find({"Country/Region":{$nin:["Thailand","Indonesia"]}})
+db["Query"].find({"Sales":{$gt:1000,$lt:1500}})
+db["Query"].find({"Sub-Category":{$in:["Funiture","Paper"]}})
+db["Query"].find({"Country/Region":"Thailand",Discount:0})
+db["Query"].find({"Sales":{$gt:1000,$lt:2000},"Region":"North Asia"})
+db["Query"].find({"Profit":{$lt:0},"Country/Region":{$ne:"Thailand"}})
